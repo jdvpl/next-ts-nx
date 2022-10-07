@@ -1,0 +1,63 @@
+{
+  "name": "01-nx",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/01-nx",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/01-nx",
+        "outputPath": "dist/apps/01-nx"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/01-nx"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "01-nx:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "01-nx:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "01-nx:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "01-nx:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/01-nx"],
+      "options": {
+        "jestConfig": "apps/01-nx/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/01-nx/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}
